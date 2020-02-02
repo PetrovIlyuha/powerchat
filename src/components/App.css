@@ -1,3 +1,7 @@
-body {
-  font-family: Righteous;
+html,
+body,
+.app {
+  height: 100vh;
+  background: #eff;
+  padding: 1rem;
 }

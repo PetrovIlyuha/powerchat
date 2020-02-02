@@ -8,13 +8,18 @@ import {
   Message,
   Icon
 } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 class Register extends React.Component {
+  state = {};
+
+  handleChange = () => {};
+
   render() {
     return (
-      <Grid textAlign="center" verticalAlign="middle">
+      <Grid textAlign="center" verticalAlign="middle" className="app">
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as="h2" icon color="green" textAlign="center">
-            <Icon name="puzzle piece" color="orange" />
+            <Icon name="chat" color="orange" />
             Rigister to use PowerChat
           </Header>
           <Form size="large">
@@ -26,9 +31,45 @@ class Register extends React.Component {
                 iconPosition="left"
                 placeholder="Username"
                 onChange={this.handleChange}
+                type="text"
               />
+              <Form.Input
+                fluid
+                name="email"
+                icon="mail"
+                iconPosition="left"
+                placeholder="Email"
+                onChange={this.handleChange}
+                type="email"
+              />
+              <Form.Input
+                fluid
+                name="password"
+                icon="lock"
+                iconPosition="left"
+                placeholder="Password"
+                onChange={this.handleChange}
+                type="password"
+              />
+              <Form.Input
+                fluid
+                name="passwordConfirmation"
+                icon="repeat"
+                iconPosition="left"
+                placeholder="Password Confirmation"
+                onChange={this.handleChange}
+                type="password"
+              />
+
+              <Button color="orange" fluid size="large">
+                Register
+              </Button>
             </Segment>
           </Form>
+          <Message>
+            Already a user?
+            <Link to="/login">Login</Link>
+          </Message>
         </Grid.Column>
       </Grid>
     );
