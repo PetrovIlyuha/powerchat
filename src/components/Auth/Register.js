@@ -76,7 +76,6 @@ class Register extends React.Component {
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then(createdUser => {
-          console.log(createdUser);
           createdUser.user
             .updateProfile({
               displayName: this.state.username,
@@ -132,8 +131,8 @@ class Register extends React.Component {
     return (
       <Grid textAlign="center" verticalAlign="middle" className="app">
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as="h2" icon color="green" textAlign="center">
-            <Icon name="chat" color="orange" />
+          <Header as="h1" icon color="green" textAlign="center">
+            <Icon name="talk" color="orange" />
             Register to PowerChat
           </Header>
           <Form size="large" onSubmit={this.handleSubmit}>
