@@ -16,8 +16,51 @@ class Register extends React.Component {
     username: '',
     email: '',
     password: '',
-    passwordConfirmation: ''
+    passwordConfirmation: '',
+    errors: []
   };
+
+  isFormValid = () => {
+    let errors = [];
+    let error;
+    if (this.isFormEmpty(this.state)) {
+      error = { message: 'Fill in all fields...' };
+      this.setState({ errors: errors.concat(error) });
+      return false;
+    } else if (this.isPasswordValid(this.state)) {
+      return true;
+    }
+  };
+
+  isFormEmpty = ({ username, email, password, passwordConfirmation }) => {
+    return (
+      !username.length ||
+      !email.length ||
+      !password.length ||
+      !passwordConfirmation.length
+    );
+  };
+
+  isPasswordValid = ({ password, passwordConfirmation }) => {
+    let error;
+    let errors = [];
+    if (password.length < 6 || passwordConfirmation.length < 6) {
+      error = { message: 'Password must be at least 6 characters long...' };
+      this.setState({ errors: errors.concat(error) });
+      return false;
+    } else if (passwordConfirmation !== password) {
+      error = {
+        message:
+          'Passwords does not match..Check your Password and Confirm Password fields...'
+      };
+      this.setState({ errors: errors.concat(error) });
+      return false;
+    }
+    return true;
+  };
+
+  displayErrors = errors =>
+    errors.map((error, i) => <p key={i}>{error.message}</p>);
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -25,19 +68,27 @@ class Register extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(createdUser => {
-        console.log(createdUser);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    if (this.isFormValid()) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(createdUser => {
+          console.log(createdUser);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
   };
 
   render() {
-    const { username, email, password, passwordConfirmation } = this.state;
+    const {
+      username,
+      email,
+      password,
+      passwordConfirmation,
+      errors
+    } = this.state;
     return (
       <Grid textAlign="center" verticalAlign="middle" className="app">
         <Grid.Column style={{ maxWidth: 450 }}>
@@ -93,6 +144,12 @@ class Register extends React.Component {
               </Button>
             </Segment>
           </Form>
+          {errors.length > 0 && (
+            <Message error>
+              <h3>Error</h3>
+              {this.displayErrors(this.state.errors)}
+            </Message>
+          )}
           <Message>
             Already a user?
             <Link to="/login">Login</Link>
