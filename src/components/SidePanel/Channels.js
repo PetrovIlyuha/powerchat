@@ -59,11 +59,11 @@ class Channels extends React.Component {
             </Form>
           </Modal.Content>
           <Modal.Actions>
-            <Button color="#17b978" inverted>
+            <Button color="#17b978" style={{ color: "#17b978" }}>
               <Icon name="checkmark" />
               Add
             </Button>
-            <Button color="#fc5185" inverted>
+            <Button color="#fc5185" inverted onClick={this.closeModal}>
               <Icon name="remove" />
               Cancel
             </Button>
