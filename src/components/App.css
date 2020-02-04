@@ -1,7 +1,12 @@
+@import url("https://fonts.googleapis.com/css?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Pacifico|Quicksand&display=swap");
 html,
 body,
 .app {
   height: 100vh;
   background: #eff;
   padding: 1rem;
+  font-family: "Pacifico", cursive;
 }
+
+/* font-family: 'Quicksand', sans-serif; */
