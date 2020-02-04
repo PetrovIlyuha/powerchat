@@ -1,7 +1,26 @@
 import React from "react";
-import { Grid, Header, Icon } from "semantic-ui-react";
+import { Grid, Header, Icon, Dropdown } from "semantic-ui-react";
 
 class UserPanel extends React.Component {
+  dropdownOptions = () => [
+    {
+      key: "user",
+      text: (
+        <span>
+          Signed In as <strong>User</strong>
+        </span>
+      ),
+      disabled: true
+    },
+    {
+      key: "avatar",
+      text: <span>Change Avatar</span>
+    },
+    {
+      key: "signout",
+      text: <span>Sign Out</span>
+    }
+  ];
   render() {
     return (
       <Grid style={{ background: "#071a52" }}>
@@ -13,6 +32,13 @@ class UserPanel extends React.Component {
               <Header.Content>Geek Chat</Header.Content>
             </Header>
           </Grid.Row>
+          {/* user Dropdown */}
+          <Header style={{ padding: "0.23rem" }} as="h3" inverted>
+            <Dropdown
+              trigger={<span>User</span>}
+              options={this.dropdownOptions()}
+            />
+          </Header>
         </Grid.Column>
       </Grid>
     );
