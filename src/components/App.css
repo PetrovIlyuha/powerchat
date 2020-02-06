@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Righteous&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Pacifico|Quicksand&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 html,
 body,
 .app {
@@ -24,4 +25,12 @@ body,
   z-index: 100;
 }
 
+.message_self {
+  border-left: 2px solid orange;
+  padding-left: 20px;
+}
+
+.single_message {
+  font-family: "Lato";
+}
 /* font-family: 'Quicksand', sans-serif; */
