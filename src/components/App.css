@@ -34,3 +34,7 @@ body,
   font-family: "Lato";
 }
 /* font-family: 'Quicksand', sans-serif; */
+
+.message__image {
+  padding: 1rem;
+}
