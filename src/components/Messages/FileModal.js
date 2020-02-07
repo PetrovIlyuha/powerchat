@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import mime from "mime-types";
 import { Modal, Input, Button, Icon } from "semantic-ui-react";
 
