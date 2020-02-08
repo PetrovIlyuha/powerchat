@@ -83,6 +83,7 @@ class MessagesForm extends React.Component {
           snap => {
             const percentUploaded =
               Math.round(snap.bytesTransferred / snap.totalBytes) * 100;
+            this.props.isProgressBarVisible(percentUploaded);
             this.setState({ percentUploaded });
           },
           err => {
@@ -167,6 +168,7 @@ class MessagesForm extends React.Component {
           <Button
             style={{ fontFamily: "Pacifico" }}
             color="teal"
+            disabled={uploadState === "uploading"}
             content="Upload Media"
             labelPosition="right"
             icon="cloud upload"
