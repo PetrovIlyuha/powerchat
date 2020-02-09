@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "../../firebase.utils";
 import { connect } from "react-redux";
-import { setCurrentChannel } from "../../actions/index";
+import { setCurrentChannel, setPrivateChannel } from "../../actions/index";
 import { Menu, Icon } from "semantic-ui-react";
 
 class DirectMessages extends React.Component {
@@ -74,7 +74,7 @@ class DirectMessages extends React.Component {
       name: user.name
     };
     this.props.setCurrentChannel(channelData);
-    this.props.setPrivateChannel();
+    this.props.setPrivateChannel(true);
   };
 
   getChannelId = UserId => {
@@ -113,4 +113,6 @@ class DirectMessages extends React.Component {
   }
 }
 
-export default connect(null, { setCurrentChannel })(DirectMessages);
+export default connect(null, { setCurrentChannel, setPrivateChannel })(
+  DirectMessages
+);
