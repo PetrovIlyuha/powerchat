@@ -1,4 +1,5 @@
 import React from "react";
+import firebase from "../../firebase.utils";
 import {
   Sidebar,
   Menu,
@@ -14,7 +15,8 @@ class ColorPanel extends React.Component {
   state = {
     modal: false,
     primary: "",
-    secondary: ""
+    secondary: "",
+    usersRef: firebase.database().ref("users")
   };
 
   openModal = () => this.setState({ modal: true });
@@ -22,6 +24,15 @@ class ColorPanel extends React.Component {
 
   handleChangePrimary = color => this.setState({ primary: color.hex });
   handleChangeSecondary = color => this.setState({ secondary: color.hex });
+
+  handleSaveColors = () => {
+    const { primary, secondary } = this.state;
+    if (primary && secondary) {
+      this.saveColors(primary, secondary);
+    }
+  };
+
+  saveColors = (primary, secondary) => {};
   render() {
     const { modal, primary, secondary } = this.state;
     return (
@@ -55,7 +66,7 @@ class ColorPanel extends React.Component {
             </Segment>
           </Modal.Content>
           <Modal.Actions>
-            <Button color="green" inverted>
+            <Button color="green" inverted onClick={this.handleSaveColors}>
               <Icon name="checkmark" />
               Save Colors
             </Button>
