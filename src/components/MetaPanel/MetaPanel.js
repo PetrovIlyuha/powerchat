@@ -43,7 +43,6 @@ class MetaPanel extends React.Component {
   render() {
     const { activeIndex, privateChannel, channel } = this.state;
     const { userPosts } = this.props;
-    console.log(userPosts && Object.values(userPosts));
     if (privateChannel) return null;
     return (
       <Segment loading={!channel}>

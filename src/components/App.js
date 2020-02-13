@@ -9,8 +9,11 @@ import "./App.css";
 
 const App = ({ currentUser, currentChannel, isPrivateChannel, userPosts }) => (
   <Grid columns="equal" className="app" style={{ background: "#eee" }}>
-    <ColorPanel />
-    <SidePanel key={currentUser && currentUser.id} currentUser={currentUser} />
+    <ColorPanel
+      key={currentUser && currentUser.name}
+      currentUser={currentUser}
+    />
+    <SidePanel key={currentUser && currentUser.uid} currentUser={currentUser} />
     <Grid.Column style={{ marginLeft: 320 }}>
       <Messages
         key={currentChannel && currentChannel.id}
@@ -21,7 +24,7 @@ const App = ({ currentUser, currentChannel, isPrivateChannel, userPosts }) => (
     </Grid.Column>
     <Grid.Column width={4}>
       <MetaPanel
-        key={currentChannel && currentChannel.id}
+        key={currentChannel && currentChannel.name}
         userPosts={userPosts}
         isPrivateChannel={isPrivateChannel}
         currentChannel={currentChannel}

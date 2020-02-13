@@ -16,6 +16,7 @@ class ColorPanel extends React.Component {
     modal: false,
     primary: "",
     secondary: "",
+    user: this.props.currentUser,
     usersRef: firebase.database().ref("users")
   };
 
@@ -32,7 +33,20 @@ class ColorPanel extends React.Component {
     }
   };
 
-  saveColors = (primary, secondary) => {};
+  saveColors = (primary, secondary) => {
+    this.state.usersRef
+      .child(`${this.state.user.uid}/colors`)
+      .push()
+      .update({
+        primary,
+        secondary
+      })
+      .then(() => {
+        console.log("Colors added");
+        this.closeModal();
+      })
+      .catch(err => console.error(err));
+  };
   render() {
     const { modal, primary, secondary } = this.state;
     return (
