@@ -61,3 +61,22 @@ body,
   align-items: center;
   width: 300px;
 }
+
+/* ColorPanel.js */
+.color__container {
+  position: relative;
+  overflow: hidden;
+  width: 35px;
+  border-radius: 3px;
+}
+
+.color__square {
+  width: 35px;
+  height: 35px;
+}
+
+.color__overlay {
+  width: 85px;
+  height: 35px;
+  transform: rotate(225deg);
+}
