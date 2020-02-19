@@ -15,6 +15,7 @@ class MessagesForm extends React.Component {
     uploadState: "",
     uploadTask: null,
     percentUploaded: 0,
+    typingRef: firebase.database().ref("typing"),
     modal: false
   };
 
@@ -41,9 +42,24 @@ class MessagesForm extends React.Component {
     return message;
   };
 
+  handleKeyDown = () => {
+    const { message, typingRef, channel, user } = this.state;
+    if (message) {
+      typingRef
+        .child(channel.id)
+        .child(user.uid)
+        .set(user.displayName);
+    } else {
+      typingRef
+        .child(channel.id)
+        .child(user.uid)
+        .remove();
+    }
+  };
+
   sendMessage = () => {
     const { getMessagesRef } = this.props;
-    const { message, channel } = this.state;
+    const { message, channel, user, typingRef } = this.state;
 
     if (message) {
       this.setState({ loading: true });
@@ -53,6 +69,10 @@ class MessagesForm extends React.Component {
         .set(this.createMessage())
         .then(() => {
           this.setState({ loading: false, message: "", errors: [] });
+          typingRef
+            .child(channel.id)
+            .child(user.uid)
+            .remove();
         })
         .catch(err => {
           console.error(err);
@@ -136,6 +156,7 @@ class MessagesForm extends React.Component {
         });
       });
   };
+
   render() {
     const {
       errors,
@@ -155,6 +176,7 @@ class MessagesForm extends React.Component {
           labelPosition="left"
           placeholder="Write your Message..."
           onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown}
           value={message}
         />
         <Button.Group icon widths="2">
