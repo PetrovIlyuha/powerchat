@@ -46,7 +46,10 @@ class MessagesForm extends React.Component {
     return message;
   };
 
-  handleKeyDown = () => {
+  handleKeyDown = e => {
+    if (e.keyCode === 13) {
+      this.sendMessage();
+    }
     const { message, typingRef, channel, user } = this.state;
     if (message) {
       typingRef

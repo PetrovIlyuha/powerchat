@@ -8,6 +8,7 @@ import MessagesHeader from "./MessagesHeader";
 import MessagesForm from "./MessagesForm";
 import Message from "./Message";
 import Typing from "./Typing";
+import Skeleton from "./Skeleton";
 
 class Messages extends React.Component {
   state = {
@@ -37,6 +38,16 @@ class Messages extends React.Component {
       this.addUserStarsListener(channel.id, user.uid);
     }
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.messagesEnd) {
+      this.scrollToBottom();
+    }
+  }
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  };
 
   addListeners = channelId => {
     this.addMessageListener(channelId);
@@ -213,6 +224,7 @@ class Messages extends React.Component {
     }, {});
     this.props.setUserPosts(userPosts);
   };
+
   displayMessages = messages => {
     return (
       messages.length > 0 &&
@@ -240,6 +252,15 @@ class Messages extends React.Component {
     return channel ? `${privateChannel ? "@" : "#"}${channel.name}` : "";
   };
 
+  displayMessageSkeleton = loading =>
+    loading ? (
+      <React.Fragment>
+        {[...Array(10)].map((_, i) => (
+          <Skeleton key={i} />
+        ))}
+      </React.Fragment>
+    ) : null;
+
   render() {
     const {
       messagesRef,
@@ -253,7 +274,8 @@ class Messages extends React.Component {
       searchLoading,
       privateChannel,
       isChannelStarred,
-      typingUsers
+      typingUsers,
+      messagesLoading
     } = this.state;
     return (
       <React.Fragment>
@@ -271,12 +293,15 @@ class Messages extends React.Component {
           <Comment.Group
             className={progressBar ? "messages__progress" : "messages"}
           >
+            {this.displayMessageSkeleton(messagesLoading)}
             {searchTerm
               ? this.displayMessages(searchResults)
               : this.displayMessages(messages)}
             {this.displayTypingUsers(typingUsers)}
+            <div ref={node => (this.messagesEnd = node)}></div>
           </Comment.Group>
         </Segment>
+
         <MessagesForm
           messagesRef={messagesRef}
           currentChannel={channel}

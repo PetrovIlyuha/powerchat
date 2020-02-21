@@ -17,7 +17,7 @@ class MessagesHeader extends React.Component {
         {/* Channel title */}
         <Header
           fluid="true"
-          as="h2"
+          as="h1"
           floated="left"
           style={{ marginBottom: "0", fontFamily: "Pacifico" }}
         >
